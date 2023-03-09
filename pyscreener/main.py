@@ -91,7 +91,12 @@ def main():
     )
     start = time.time()
 
-    S = virtual_screen(supply.ligands)
+    # GE:
+    # use_3d and optimise both pass files rather than SMILES
+    # perhaps this fix won't work if both are passed via the LigandSupply object?
+    _supply_returns_smiles = not (args.use_3d or args.optimize)
+    
+    S = virtual_screen(supply.ligands, smiles=_supply_returns_smiles)
 
     total_time = time.time() - start
     print("Done!")
